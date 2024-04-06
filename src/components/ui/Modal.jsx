@@ -2,13 +2,12 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { useAuthStore } from '../../store/store';
 import { Form } from '../Form';
+import { useState } from 'react';
 
 export default function Modal() {
-  const {userBalance} = useAuthStore();
 
-  const { isOpen } = useAuthStore();
+  const { isOpen,account,signer,userBalance } = useAuthStore();
   const setIsOpen = useAuthStore((state) => state.setOpen);
-
 
   function closeModal() {
     setIsOpen(false)
