@@ -5,13 +5,18 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
-import Main from "./components/Main";
+import Home from "./components/Home";
+import Dashboard from "./components/Dashboard";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main/>,
+    element: <Home/>,
   },
+  {
+    path: "/dashboard",
+    element: <Dashboard/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
