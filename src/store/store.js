@@ -9,4 +9,6 @@ export const useAuthStore = create((set) => ({
   updateProvider: (newProvider) => set({ provider: newProvider }),
   updateSigner: (newSigner) => set({ signer: newSigner }),
   setUserBalance: (balance) => set({ userBalance: balance }),
+  isOpen: false,
+  setOpen: (newIsOpen) => set({ isOpen: newIsOpen }),
 }));
