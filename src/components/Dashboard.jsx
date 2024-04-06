@@ -5,7 +5,7 @@ import { abi } from '../../artifacts/InsuranceContractABI';
 import { useState } from 'react';
 import { BentoGridItem } from './ui/BentoGridItem';
 
-const contractAddress = "0x1447f4e60f609625f6fe6b9fe4c404fd2f4a9e95";
+const contractAddress = "0xb00f410ee2c695917fa891c1184256c4b977fc96";
 
 const Dashboard = () => {
   
