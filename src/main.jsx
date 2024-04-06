@@ -1,35 +1,43 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from 'recoil';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RecoilRoot } from 'recoil';
 import "./index.css";
 import Home from "./components/Home";
 import Dashboard from "./components/Dashboard";
+import Navbar from "./components/Navbar"; 
+import { Toaster } from 'react-hot-toast';
+import Modal from "./components/ui/Modal";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>,
+    element: <Home />,
   },
   {
     path: "/dashboard",
-    element: <Dashboard/>
+    element: <Dashboard />
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RecoilRoot>
-      <RouterProvider router={router} />
+    <div className="relative min-h-screen w-full bg-neutral-900">
+
+        <Navbar /> 
+        <RouterProvider router={router} />
+        <Toaster/>
+        <Modal/>
+
+    </div>  
     </RecoilRoot>
   </React.StrictMode>
 );
+
+
+
+
+
+

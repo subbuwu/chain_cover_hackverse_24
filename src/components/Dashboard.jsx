@@ -3,11 +3,16 @@ import { useAuthStore } from '../store/store';
 import { ethers, parseEther } from 'ethers';
 import { abi } from '../../artifacts/InsuranceContractABI';
 import { useState } from 'react';
+import { BentoGridItem } from './ui/BentoGridItem';
 
 const contractAddress = "0x1447f4e60f609625f6fe6b9fe4c404fd2f4a9e95";
 
 const Dashboard = () => {
-  const { account, signer } = useAuthStore();
+  
+  const { isOpen,account,signer } = useAuthStore();
+  const setIsOpen = useAuthStore((state) => state.setOpen);
+  
+
   const [contract,setContract] = useState();
 
   useEffect(() => {
@@ -28,7 +33,6 @@ const Dashboard = () => {
 
   const purchasePolicy = async (policyName,coverageAmt,premAmt) => {
     try {
-      // Send transaction to the smart contract
       const transaction = await contract.purchasePolicy(policyName,coverageAmt,{value:premAmt});
       await transaction.wait();
       console.log("Transaction successful");
@@ -38,19 +42,14 @@ const Dashboard = () => {
   };
 
   return (
-    <div className='p-10'>
-      <button className='p-2 rounded-xl m-5 bg-black text-xl text-white text-center font-sans' onClick={()=>purchasePolicy("Car Insurance","4",parseEther('2'))}>
-        Purchase car policy
-      </button>
+    <div className='pt-[9rem] w-full h-full'>
+
+      <div className='w-full h-full grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 sm:gap-6 gap-8 max-w-7xl mx-auto px-4 sm:p-0'>
+        <BentoGridItem imgSrc="./car.svg"  title="Car Insurance" desc="Your Wheels. Our Shield"  attachedFunction={setIsOpen(true)}/>
+        <BentoGridItem imgSrc="./car.svg"  title="Car Insurance" desc="Your Wheels. Our Shield" />
+      </div> 
     </div>
   );
 };
 
 export default Dashboard;
-
-
-
-
-
-
-// purchasePolicy(60,2,{10})
