@@ -1,11 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { useAuthStore } from '../../store/store';
+import { Form } from '../Form';
 
 export default function Modal() {
-   const { isOpen } = useAuthStore();
+  const {userBalance} = useAuthStore();
 
-   const setIsOpen = useAuthStore((state) => state.isOpen);
+  const { isOpen } = useAuthStore();
+  const setIsOpen = useAuthStore((state) => state.setOpen);
+
 
   function closeModal() {
     setIsOpen(false)
@@ -16,9 +19,10 @@ export default function Modal() {
   }
 
   return (
+    isOpen && 
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-[999]" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -43,28 +47,21 @@ export default function Modal() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+  
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-3xl mb-8 font-bold text-center  text-black"
                   >
-                    Payment successful
+                    Get Your Insurance in a click
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
-                  </div>
 
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                  </div>
+                  <Dialog.Title
+                    as="h2"
+                    className="text-xl mb-2 font-medium text-right  text-black"
+                  >
+                    Your Balance : {userBalance}TXDC
+                  </Dialog.Title>
+                  <Form/>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
