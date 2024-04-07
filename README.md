@@ -51,7 +51,8 @@ INSURED FOR YOU leverages blockchain technology to revolutionize insurance proce
 - NextJS
 - NodeJS
 - Figma
-- 
+- Zustand
+
 # 📦 *Inside the box*
 
 1. Data security: Ensuring data integrity and confidentiality through blockchain technology, reducing the risk of leaks or breaches.
