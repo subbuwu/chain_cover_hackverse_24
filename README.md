@@ -67,10 +67,12 @@ INSURED FOR YOU leverages blockchain technology to revolutionize insurance proce
 
 Deployed on CoinEx Smart Chain : https://testnet.coinex.net/tx/0x156fdb7c842c198808c311fd451f4b978a50d14364002a3f7d777e51e0967f85
 Deployed on XDC : https://explorer.apothem.network/address/0x853a38acc026557fb1ef9a64ccbf67e54936e789#transactions
+
 # *Contract Address*
 
 Address on XDC : xdc853a38acc026557fb1ef9a64ccbf67e54936e789
 Address on CoinEx : 0x2d78dca30641f2e5a8435d65d57e96147ea08fe5
+Address on Ethereum : 0xcD6a42782d230D7c13A74ddec5dD140e55499Df9
   
 # 📜 *License*
 
