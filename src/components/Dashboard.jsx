@@ -5,7 +5,7 @@ import { abi } from '../../artifacts/InsuranceContractABI';
 import { useState } from 'react';
 import { BentoGridItem } from './ui/BentoGridItem';
 
-const contractAddress = "0x43ea341576eda17fd17792c29c0cc6916b5fc098";
+const contractAddress = "0xa1d65b5cce655919bf41b000e286006e31f48bb4";
 
 const Dashboard = () => {
   
@@ -38,6 +38,8 @@ const Dashboard = () => {
         <BentoGridItem imgSrc="./health.svg"  title="Health Insurance" desc="Health Insurance: Your Wellness, Our Priority." attachedFunction={()=>setIsOpen(true)}/>
         <BentoGridItem imgSrc="./termlife.svg"  title="Term Life Insurance" desc="Securing Your Legacy, Ensuring Peace of Mind." attachedFunction={()=>setIsOpen(true)}/>
         <BentoGridItem imgSrc="./crop.svg"  title="Agri Insurance" desc="Cultivating Confidence, Harvesting Security." attachedFunction={()=>setIsOpen(true)}/>
+        <BentoGridItem imgSrc="./ret.svg"  title="Retirement Solutions" desc="Make money even if you retire." attachedFunction={()=>setIsOpen(true)}/>
+        <BentoGridItem imgSrc="./home.svg"  title="Home Insurance" desc="Protecting your heaven one policy at a time." attachedFunction={()=>setIsOpen(true)}/>
       </div> 
     </div>
   );

@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <header className="z-[50] fixed top-0 w-full border-b  backdrop-blur-sm bg-white/[0.6] dark:bg-black/[0.6] border-zinc-700">
-      <div className="p-[2rem] md:p-0 flex h-16 items-center max-w-[88rem] mx-auto">
+      <div className="p-4 md:p-0 flex h-16 items-center max-w-[88rem] mx-auto">
         <div className="mr-4 hidden md:flex">
           <a
             className="flex items-center justify-center space-x-2 text-xl font-bold py-6 text-center text-neutral-600 dark:text-gray-100 selection:bg-emerald-500 mr-10"
@@ -66,8 +66,8 @@ const Navbar = () => {
           </div>
           <span className="ml-2 text-white text-2xl">Chain Cover</span>
         </a>
-        <div className="flex flex-1 items-center justify-end gap-2 sm:gap-2 md:justify-end">
-        <button className="px-8 py-2 mr-3 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200" onClick={()=>handlePolicy()}>
+        <div className="flex flex-1 items-center justify-end gap-2 ">
+        <button className="sm:px-8 sm:py-2 py-[2px] px-8  mr-3 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200" onClick={()=>handlePolicy()}>
   My Policies
 </button>
           <button className="sm:flex relative hidden justify-start items-center text-sm text-muted-foreground dark:border-white/[0.2] py-2 w-fit border border-transparent shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] px-4 rounded-xl bg-white dark:bg-brand">

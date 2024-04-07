@@ -13,7 +13,7 @@ export default function MyPoliciesModal() {
 
     const { isMyPolicyModalOpen } = useAuthStore()
     const setPolicyModalOpen = useAuthStore((state) => state.setPolicyModalOpen);
-    const contractAddress = "0x43ea341576eda17fd17792c29c0cc6916b5fc098";
+    const contractAddress = "0xa1d65b5cce655919bf41b000e286006e31f48bb4";
 
     const [policies, setPolicies] = useState([]);
     const [providerContract, setProviderContract] = useState();

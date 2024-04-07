@@ -133,7 +133,7 @@ const Home = () => {
       ) : (
       <div className="mt-10 flex justify-center text-center">
         <div onClick={connectWalletHandler}>
-          <button className="inline-flex h-12 animate-shimmer text-xl items-center justify-center rounded-3xl border border-slate-600 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] py-4 px-8 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 " >
+          <button className="inline-flex h-12 animate-shimmer text-xl items-center justify-center rounded-3xl border border-slate-600 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] py-6 px-16 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 " >
             Connect Wallet
           </button>
         </div>

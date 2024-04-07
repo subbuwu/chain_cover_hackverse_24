@@ -6,6 +6,7 @@ import { cn } from "../utils/cn.js";
 import { parseEther } from "ethers";
 import { useState } from "react";
 import { useAuthStore } from '../store/store.js';
+import toast from "react-hot-toast";
 
 export function Form() {
 
@@ -17,13 +18,16 @@ export function Form() {
   const [amountCost,setAmountCost] = useState();
 
   const handleSubmit = async(e) => {
-    e.preventDefault();
+    e.preventDefault();      
     try {
       let premAmt = parseEther(amountCost);
       console.log(contract)
       const transaction = await contract.purchasePolicy(policyName,coverageAmt,{value:premAmt});
+      toast.success('Transaction Successful!',{
+        duration: 4000,
+        position: "top-right"
+      })
       await transaction.wait();
-      console.log(transaction);
     } catch (error) {
       console.error("Error calling purchasePolicy:", error);
     }
