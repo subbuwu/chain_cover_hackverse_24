@@ -7,13 +7,15 @@ import { abi } from '../../../artifacts/InsuranceContractABI';
 import { ethers } from 'ethers';
 
 export default function MyPoliciesModal() {
+
+    const contractAddress = "0x853a38acc026557fb1ef9a64ccbf67e54936e789";
+
     useEffect(() => {
         accessContract();
     }, []);
 
     const { isMyPolicyModalOpen } = useAuthStore()
     const setPolicyModalOpen = useAuthStore((state) => state.setPolicyModalOpen);
-    const contractAddress = "0x43ea341576eda17fd17792c29c0cc6916b5fc098";
 
     const [policies, setPolicies] = useState([]);
     const [providerContract, setProviderContract] = useState();
@@ -132,3 +134,5 @@ export default function MyPoliciesModal() {
         </>
     );
 }
+
+

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ethers, formatEther } from 'ethers';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/store';
 import toast from 'react-hot-toast';
 import InfoSection from './InfoSection';
+import { AdminContext } from '../mycontext';
+import Admin from './Admin';
 
 const Home = () => {
-
+  const { isAdmin,setIsAdmin } = useContext(AdminContext);
   const [errorMessage, setErrorMessage] = useState();
   const [defaultAccount, setDefaultAccount] = useState();
   const [userBalance,setUserBalance] = useState();
@@ -92,6 +94,7 @@ const Home = () => {
   
 
   return (
+    !isAdmin ? 
     <div className=' pt-[9rem]'>
       <h1 className="px-2 relative z-10 text-3xl md:text-5xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
           Experience Lightning-Fast Insurance Solutions <br className='hidden sm:block'/> with the Power of Blockchain <span className='text-yellow-400'>⚡️</span>
@@ -133,7 +136,7 @@ const Home = () => {
       ) : (
       <div className="mt-10 flex justify-center text-center">
         <div onClick={connectWalletHandler}>
-          <button className="inline-flex h-12 animate-shimmer text-xl items-center justify-center rounded-3xl border border-slate-600 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] py-4 px-8 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 " >
+          <button className="inline-flex h-12 animate-shimmer text-xl items-center justify-center rounded-3xl border border-slate-600 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] py-6 px-16 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 " >
             Connect Wallet
           </button>
         </div>
@@ -142,7 +145,7 @@ const Home = () => {
 
 
       <InfoSection/>
-    </div>
+    </div> : <Admin/>
   );
 };
 

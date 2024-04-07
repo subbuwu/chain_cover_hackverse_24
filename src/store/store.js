@@ -18,4 +18,6 @@ export const useAuthStore = create((set) => ({
   setOpen: (newIsOpen) => set({ isOpen: newIsOpen }),
   isMyPolicyModalOpen: false,
   setPolicyModalOpen: (newIsOpen) => set({ isMyPolicyModalOpen: newIsOpen }),
+  isAdmin: false,
+  setIsAdmin: (newIsAdmin) => set({ isAdmin: newIsAdmin }),
 }));
