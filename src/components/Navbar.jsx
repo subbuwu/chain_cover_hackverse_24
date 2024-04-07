@@ -1,15 +1,14 @@
 import React from "react";
 import "../font.css";
 import { useAuthStore } from "../store/store";
-import { useEffect } from "react";
-import { useState } from "react";
-import { ethers } from "ethers";
-import { abi } from "../../artifacts/InsuranceContractABI";
+import { useContext } from "react";
+import { AdminContext } from "../mycontext";
+
 
 const Navbar = () => {
-  const setPolicyModalOpen = useAuthStore((state) => state.setPolicyModalOpen);
 
- 
+  const setPolicyModalOpen = useAuthStore((state) => state.setPolicyModalOpen);
+  const { setIsAdmin } = useContext(AdminContext);
   const handlePolicy = () => {
     setPolicyModalOpen(true);
   }
@@ -39,8 +38,11 @@ const Navbar = () => {
             <div className="flex flex-col">
               <h1 className="text-white">Chain Cover</h1>
             </div>
+            
           </a>
+          
         </div>
+        
         <a
           className="inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground h-9 py-2 mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
           type="button"
@@ -69,6 +71,9 @@ const Navbar = () => {
         <div className="flex flex-1 items-center justify-end gap-2 ">
         <button className="sm:px-8 sm:py-2 py-[2px] px-8  mr-3 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200" onClick={()=>handlePolicy()}>
   My Policies
+</button>
+<button className="sm:px-8 sm:py-2 py-[2px] px-8  mr-3 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200" onClick={()=>setIsAdmin(true)}>
+  Admin Login
 </button>
           <button className="sm:flex relative hidden justify-start items-center text-sm text-muted-foreground dark:border-white/[0.2] py-2 w-fit border border-transparent shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] px-4 rounded-xl bg-white dark:bg-brand">
             <span className="transition-colors hover:text-foreground/80 text-foreground/60 text-sm font-medium pl-2 pr-4">

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ethers, formatEther } from 'ethers';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/store';
 import toast from 'react-hot-toast';
 import InfoSection from './InfoSection';
+import { AdminContext } from '../mycontext';
+import Admin from './Admin';
 
 const Home = () => {
-
+  const { isAdmin,setIsAdmin } = useContext(AdminContext);
   const [errorMessage, setErrorMessage] = useState();
   const [defaultAccount, setDefaultAccount] = useState();
   const [userBalance,setUserBalance] = useState();
@@ -92,6 +94,7 @@ const Home = () => {
   
 
   return (
+    !isAdmin ? 
     <div className=' pt-[9rem]'>
       <h1 className="px-2 relative z-10 text-3xl md:text-5xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
           Experience Lightning-Fast Insurance Solutions <br className='hidden sm:block'/> with the Power of Blockchain <span className='text-yellow-400'>⚡️</span>
@@ -142,7 +145,7 @@ const Home = () => {
 
 
       <InfoSection/>
-    </div>
+    </div> : <Admin/>
   );
 };
 
