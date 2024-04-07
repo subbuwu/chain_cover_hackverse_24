@@ -73,6 +73,7 @@ Deployed on Coinex smart chain : https://testnet.coinex.net/tx/0x156fdb7c842c198
 
 
 Address on XDC : xdc853a38acc026557fb1ef9a64ccbf67e54936e789
+
 Address on coinex smart chain : 0x2d78dca30641f2e5a8435d65d57e96147ea08fe5
 
 
