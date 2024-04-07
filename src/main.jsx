@@ -8,6 +8,7 @@ import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar"; 
 import { Toaster } from 'react-hot-toast';
 import Modal from "./components/ui/Modal";
+import MyPoliciesModal from "./components/ui/MyPoliciesModal";
 
 
 const router = createBrowserRouter([
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />
-  }
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <RouterProvider router={router} />
         <Toaster/>
         <Modal/>
+        <MyPoliciesModal/>
 
     </div>  
     </RecoilRoot>

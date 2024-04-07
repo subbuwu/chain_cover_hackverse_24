@@ -11,8 +11,8 @@ export function Form() {
 
   const { contract } = useAuthStore();
   
-  const policyName = "Car Policy"
-  const coverageAmt = "3"
+  const policyName = "Agriculture Policy"
+  const coverageAmt = "1.5"
   
   const [amountCost,setAmountCost] = useState();
 

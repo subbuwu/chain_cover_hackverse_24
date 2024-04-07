@@ -16,4 +16,6 @@ export const useAuthStore = create((set) => ({
   setUserBalance: (balance) => set({ userBalance: balance }),
   isOpen: false,
   setOpen: (newIsOpen) => set({ isOpen: newIsOpen }),
+  isMyPolicyModalOpen: false,
+  setPolicyModalOpen: (newIsOpen) => set({ isMyPolicyModalOpen: newIsOpen }),
 }));

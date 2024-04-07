@@ -3,6 +3,7 @@ import { ethers, formatEther } from 'ethers';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/store';
 import toast from 'react-hot-toast';
+import InfoSection from './InfoSection';
 
 const Home = () => {
 
@@ -93,7 +94,7 @@ const Home = () => {
   return (
     <div className=' pt-[9rem]'>
       <h1 className="px-2 relative z-10 text-3xl md:text-5xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
-          Experience Lightning-Fast Insurance Solutions <br className='hidden sm:block'/> with the Power of Blockchain. 
+          Experience Lightning-Fast Insurance Solutions <br className='hidden sm:block'/> with the Power of Blockchain <span className='text-yellow-400'>⚡️</span>
         </h1>
       {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
       {defaultAccount ? (
@@ -138,6 +139,9 @@ const Home = () => {
         </div>
       </div>
       )}
+
+
+      <InfoSection/>
     </div>
   );
 };
