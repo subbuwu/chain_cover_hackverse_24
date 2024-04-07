@@ -63,6 +63,13 @@ INSURED FOR YOU leverages blockchain technology to revolutionize insurance proce
 6. ser-friendly interface: Designing an intuitive and user-friendly interface for seamless navigation and enhanced user experience.
 7. Trust-building measures: Building trust among customers by prioritizing security, transparency, and efficiency in insurance processes.
 
+# *Contract Address*
+
+Deployed on CoinEx Smart Chain : https://testnet.coinex.net/tx/0x156fdb7c842c198808c311fd451f4b978a50d14364002a3f7d777e51e0967f85
+
+# *Contract Address*
+  0x2d78dca30641f2e5a8435d65d57e96147ea08fe5
+  
 # 📜 *License*
 
 `LenDen` is available under the MIT license. See the [`LICENSE`](./LICENSE) file for more info.
