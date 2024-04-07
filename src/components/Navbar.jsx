@@ -7,53 +7,12 @@ import { ethers } from "ethers";
 import { abi } from "../../artifacts/InsuranceContractABI";
 
 const Navbar = () => {
+  const setPolicyModalOpen = useAuthStore((state) => state.setPolicyModalOpen);
 
-  useEffect(()=>{
-    accessContract()
-  },[])
-
-
-  const contractAddress = "0xb00f410ee2c695917fa891c1184256c4b977fc96";
-
-  const { policies,provider } = useAuthStore();
-  const setPolicies = useAuthStore((state) => state.updatePolicies);
-  const [providerContract,setProviderContract] = useState();
-
-  const accessContract = async () => {
-    try {
-      if (window.ethereum) {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const contract = new ethers.Contract(contractAddress, abi, provider);
-        setProviderContract(contract);
-      } else {
-        console.error("MetaMask is not installed or not connected");
-      }
-    } catch (error) {
-      console.error("Error accessing contract:", error);
-    }
-  };
-
-  const getUserPolicies = async () => {
-    try {
-      if (providerContract) {
-        // If providerContract is defined, proceed with calling methods
-        const gettingPolicies = await providerContract.getPolicies();
-        console.log(gettingPolicies);
-  
-        const getPoliciesString = gettingPolicies.toString();
-        console.log("Policies:", getPoliciesString);
-  
-        setPolicies(gettingPolicies);
-        console.log(policies);
-      } else {
-        console.error("Provider contract is undefined");
-      }
-    } catch (error) {
-      console.error("Error calling getPolicies :", error);
-    }
-  };
-  
+ 
+  const handlePolicy = () => {
+    setPolicyModalOpen(true);
+  }
 
   return (
     <header className="z-[50] fixed top-0 w-full border-b  backdrop-blur-sm bg-white/[0.6] dark:bg-black/[0.6] border-zinc-700">
@@ -108,12 +67,9 @@ const Navbar = () => {
           <span className="ml-2 text-white text-2xl">Chain Cover</span>
         </a>
         <div className="flex flex-1 items-center justify-end gap-2 sm:gap-2 md:justify-end">
-          <button className="p-[3px] relative mr-4" onClick={()=>getUserPolicies()}>
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
-            <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
-              My Policies
-            </div>
-          </button>
+        <button className="px-8 py-2 mr-3 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200" onClick={()=>handlePolicy()}>
+  My Policies
+</button>
           <button className="sm:flex relative hidden justify-start items-center text-sm text-muted-foreground dark:border-white/[0.2] py-2 w-fit border border-transparent shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] px-4 rounded-xl bg-white dark:bg-brand">
             <span className="transition-colors hover:text-foreground/80 text-foreground/60 text-sm font-medium pl-2 pr-4">
               Contact Us
