@@ -1,97 +1,142 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { ethers, formatEther } from 'ethers';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../store/store';
 import toast from 'react-hot-toast';
-import InfoSection from './InfoSection';
+import { useContext } from 'react';
 import { AdminContext } from '../mycontext';
-import Admin from './Admin';
+import InfoSection from './InfoSection';
+import Admin from "./Admin";
+import { useAuthStore } from '../store/store.js';
+import { abi } from '../../artifacts/InsuranceContractABI.js';
 
 const Home = () => {
-  const { isAdmin,setIsAdmin } = useContext(AdminContext);
+  const contractAddress = "0x853a38acc026557fb1ef9a64ccbf67e54936e789";
   const [errorMessage, setErrorMessage] = useState();
-  const [defaultAccount, setDefaultAccount] = useState();
-  const [userBalance,setUserBalance] = useState();
-  const [showDashboardBtn,setShowDashboardBtn] = useState(false);
+  const [showDashboardBtn, setShowDashboardBtn] = useState(false);
 
-  const navigate = useNavigate(); 
+  const { isAdmin, setIsAdmin } = useContext(AdminContext);
+  
+  const { account, setUserBalance } = useAuthStore();
 
-  const updateAccount = useAuthStore((state) => state.updateAccount);
-  const updateProvider = useAuthStore((state) => state.updateProvider);
-  const updateSigner = useAuthStore((state) => state.updateSigner);
-  const setRecoilUserBalance = useAuthStore((state) => state.setUserBalance);
+  const updateSigner = useAuthStore((state)=>state.updateSigner);
+  const updateContract = useAuthStore((state)=>state.updateContract);
+  const updateAccount = useAuthStore((state)=>state.updateAccount);
 
-  const provider =  new ethers.BrowserProvider(window.ethereum);
-  updateProvider(provider);
+  const navigate = useNavigate();
 
   const connectWalletHandler = async () => {
-    console.log("connec")
-    if (window.ethereum) {
-      try {
-        const accounts = await provider.send("eth_requestAccounts", []);
-
-        if(accounts){
-          toast('Connected!',
-            {
-              icon: '👏',
-              style: {
-                borderRadius: '10px',
-                background: '#333',
-                color: '#fff',
-                padding: "20px",
-              },
-            }
-          );
-        }
-
-        setDefaultAccount(accounts[0]);
-        updateAccount(accounts[0]); // Update account state
+    try {
+      setErrorMessage("");
   
-        const signer = await provider.getSigner();
-        updateSigner(signer);
-  
-        if (accounts[0]) {
-          const balance = await provider.getBalance(accounts[0]);
-          const formattedBalance = formatEther(balance);
-          setUserBalance(formattedBalance); // Update user balance state
-          setRecoilUserBalance(formattedBalance); // Update recoil user balance
-        }
-  
-        setShowDashboardBtn(true);
-      } catch (error) {
-        setErrorMessage("Error connecting to MetaMask: " + error.message);
-        console.error(error);
+      if (!window.ethereum) {
+        toast.error('Please Install Metamask', {
+          style: {
+            border: '1px solid #713200',
+            padding: '16px',
+            color: '#713200',
+          },
+          iconTheme: {
+            primary: '#713200',
+            secondary: '#FFFAEE',
+          },
+        }); // Explicit error for clarity
       }
-    } else {
-      setErrorMessage("Please Install MetaMask!");
+  
+      const provider = new ethers.BrowserProvider(window.ethereum); // Use modern provider type
+      const signer = await provider.getSigner();
+  
+      // Get accounts before updating signer and contract
+      const accounts = await provider.send('eth_requestAccounts', []);
+  
+      if (accounts.length === 0) {
+        toast.error('No Account in Metamask', {
+          style: {
+            border: '1px solid #713200',
+            padding: '16px',
+            color: '#713200',
+          },
+          iconTheme: {
+            primary: '#713200',
+            secondary: '#FFFAEE',
+          },
+        }); // Handle missing accounts
+      }
+  
+      updateSigner(signer);
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+      updateContract(contract);
+  
+      toast.success('Connected To Metamask!', {
+        style: {
+          border: '1px solid #6af614',
+          padding: '16px',
+          color: '#007144',
+        },
+        iconTheme: {
+          primary: '#713200',
+          secondary: '#FFFAEE',
+        },
+      });
+    
+  
+      updateAccount(accounts[0]);
+  
+      const balance = await provider.getBalance(accounts[0]);
+      const formattedBalance = formatEther(balance);
+      setUserBalance(formattedBalance);
+  
+      setShowDashboardBtn(true);
+    } catch (error) {
+      console.error(error); // Log for debugging
+  
+      if (error.message.includes("Request of type 'wallet_requestPermissions' already pending")) {
+        toast.error('There is already a wallet connection request in progress. Please complete it or refresh the page and try again.', {
+          style: {
+            border: '1px solid #713200',
+            padding: '16px',
+            color: '#713200',
+          },
+          iconTheme: {
+            primary: '#713200',
+            secondary: '#FFFAEE',
+          },
+        }); // Handle pending request
+      } else if (error.message.includes("MetaMask not installed")) {
+        toast.error('MetaMask not installed', {
+          style: {
+            border: '1px solid #713200',
+            padding: '16px',
+            color: '#713200',
+          },
+          iconTheme: {
+            primary: '#713200',
+            secondary: '#FFFAEE',
+          },
+        }); // Handle missing MetaMask
+      } else {
+        toast.error('Error Connecting to Metamask , Try Again !', {
+          style: {
+            border: '1px solid #713200',
+            padding: '16px',
+            color: '#713200',
+          },
+          iconTheme: {
+            primary: '#713200',
+            secondary: '#FFFAEE',
+          },
+        });
+      }
     }
   };
-  
+    
 
-  useEffect(() => {
-    const checkMetaMaskConnection = async () => {
-      const accounts = await provider.send("eth_accounts", []);
-      if (accounts.length > 0) {
-        setDefaultAccount(accounts[0]);
-        updateAccount(accounts[0]); // Update account state
-  
-        const signer = await provider.getSigner();
-        updateSigner(signer);
-  
-        // Get user balance and update state
-        const balance = await provider.getBalance(accounts[0]);
-        const formattedBalance = formatEther(balance);
-        setUserBalance(formattedBalance);
-        setRecoilUserBalance(formattedBalance);
-  
-        // Show dashboard button
-        setShowDashboardBtn(true);
-      }
-    };
-  
-    checkMetaMaskConnection();
-  }, [provider]); // Run effect only when provider changes
-  
+  const handleConnectWalletClick = () => {
+    connectWalletHandler();
+  };
+
+  const handleGoToDashboardClick = () => {
+    navigate('/dashboard');
+  };
 
   return (
     !isAdmin ? 
@@ -100,11 +145,11 @@ const Home = () => {
           Experience Lightning-Fast Insurance Solutions <br className='hidden sm:block'/> with the Power of Blockchain <span className='text-yellow-400'>⚡️</span>
         </h1>
       {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
-      {defaultAccount ? (
+      {account ? (
         <>
         {showDashboardBtn && 
         <div className="mt-10 flex justify-center text-center">
-          <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xl font-semibold leading-6  text-white inline-block" onClick={()=>navigate("/dashboard")}>
+          <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xl font-semibold leading-6  text-white inline-block" onClick={handleGoToDashboardClick}>
           <span className="absolute inset-0 overflow-hidden rounded-full">
             <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           </span>
@@ -135,7 +180,7 @@ const Home = () => {
         </>
       ) : (
       <div className="mt-10 flex justify-center text-center">
-        <div onClick={connectWalletHandler}>
+        <div onClick={handleConnectWalletClick}>
           <button className="inline-flex h-12 animate-shimmer text-xl items-center justify-center rounded-3xl border border-slate-600 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] py-6 px-16 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 " >
             Connect Wallet
           </button>

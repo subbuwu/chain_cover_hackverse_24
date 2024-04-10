@@ -10,11 +10,16 @@ export default function MyPoliciesModal() {
 
     const contractAddress = "0x853a38acc026557fb1ef9a64ccbf67e54936e789";
 
+    const isMyPolicyModalOpen = useAuthStore((state)=>state.isMyPolicyModalOpen);
+
     useEffect(() => {
-        accessContract();
+        if(isMyPolicyModalOpen){
+            console.log("Inside modal")
+            accessContract();
+        }
     }, []);
 
-    const { isMyPolicyModalOpen } = useAuthStore()
+
     const setPolicyModalOpen = useAuthStore((state) => state.setPolicyModalOpen);
 
     const [policies, setPolicies] = useState([]);
@@ -23,7 +28,7 @@ export default function MyPoliciesModal() {
     const accessContract = async () => {
         try {
             if (window.ethereum) {
-
+                console.log('Inside policyt miodal')
                 const provider = new ethers.BrowserProvider(window.ethereum);
                 const contract = new ethers.Contract(contractAddress, abi, provider);
                 setProviderContract(contract);
@@ -49,7 +54,10 @@ export default function MyPoliciesModal() {
     };
 
     useEffect(() => {
-        getUserPolicies(); // Call getUserPolicies when providerContract changes
+        if(isMyPolicyModalOpen){
+            getUserPolicies();
+        }
+         // Call getUserPolicies when providerContract changes
     }, [providerContract]);
 
     function closeModal() {

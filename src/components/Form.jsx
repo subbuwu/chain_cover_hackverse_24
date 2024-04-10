@@ -3,35 +3,61 @@ import React from "react";
 import { Label } from "./ui/label.jsx";
 import { Input } from "./ui/Input.jsx";
 import { cn } from "../utils/cn.js";
-import { parseEther } from "ethers";
+import { ethers, formatEther,parseEther } from 'ethers';
 import { useState } from "react";
 import { useAuthStore } from '../store/store.js';
 import toast from "react-hot-toast";
+import { abi } from "../../artifacts/InsuranceContractABI.js";
+import { useEffect } from "react";
 
-export function Form() {
+let contract;
 
+const contractAddress = "0x853a38acc026557fb1ef9a64ccbf67e54936e789";
+
+export function Form() {  
   const { contract } = useAuthStore();
-  
+    
   const policyName = "Term Life Policy"
   const coverageAmt = "10"
   
   const [amountCost,setAmountCost] = useState();
 
-  const handleSubmit = async(e) => {
-    e.preventDefault();      
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      let premAmt = parseEther(amountCost);
-      console.log(contract)
-      const transaction = await contract.purchasePolicy(policyName,coverageAmt,{value:premAmt});
-      toast.success('Transaction Successful!',{
-        duration: 4000,
-        position: "top-right"
-      })
+      const premAmt = parseEther(amountCost);
+      const transaction = await contract.purchasePolicy(policyName, coverageAmt, { value: premAmt });
       await transaction.wait();
+
+      toast.success('Transaction Successful', {
+        style: {
+          border: '1px solid #713200',
+          padding: '16px',
+          color: '#713200',
+        },
+        iconTheme: {
+          primary: '#713200',
+          secondary: '#FFFAEE',
+        },
+        duration: 4000,
+      });
     } catch (error) {
-      console.error("Error calling purchasePolicy:", error);
+      toast.error('Transaction Failed', {
+        style: {
+          border: '1px solid #713200',
+          padding: '16px',
+          color: '#713200',
+        },
+        iconTheme: {
+          primary: '#713200',
+          secondary: '#FFFAEE',
+        },
+        duration: 4000,
+      });
     }
   };
+
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
 

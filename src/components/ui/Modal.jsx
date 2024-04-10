@@ -9,6 +9,10 @@ export default function Modal() {
   const { isOpen,account,signer,userBalance } = useAuthStore();
   const setIsOpen = useAuthStore((state) => state.setOpen);
 
+  // if(!userBalance && !account){
+  //   window.location.href = 
+  // }
+
   function closeModal() {
     setIsOpen(false)
   }

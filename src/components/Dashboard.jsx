@@ -11,24 +11,10 @@ const Dashboard = () => {
   
   const { isOpen,account,signer } = useAuthStore();
   const setIsOpen = useAuthStore((state) => state.setOpen);
-  const setContract = useAuthStore((state) => state.updateContract);
 
-
-  const accessContract = async () => {
-    try {
-      const contract = new ethers.Contract(contractAddress, abi, signer);
-      setContract(contract)
-      console.log(contract)
-    } catch (error) {
-      console.error("Error accessing contract:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (!account || !signer) return;
-    accessContract()
-  }, [account, signer]);
-
+  if(!account || !signer) {
+    window.location.href = "/";
+  }
 
   return (
     <div className='pt-[9rem] w-full h-full'>

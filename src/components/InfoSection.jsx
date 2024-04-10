@@ -1,5 +1,6 @@
 import React from 'react'
 import {MeteorCard} from "./MeteorCard.jsx"
+
 const InfoSection = () => {
   return (
     <section className='text-white px-10 sm:mt-40 mt-28 gap-4 items-center justify-center flex sm:flex-row flex-col'>
